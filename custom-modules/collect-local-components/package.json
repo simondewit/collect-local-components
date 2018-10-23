@@ -1,0 +1,21 @@
+{
+  "name": "collect-local-components",
+  "version": "1.0.0",
+  "description": "Captures tagged HTML comments and their corresponding HTML components from a local website and generates components.json.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "css-select": "^2.0.2",
+    "object-assign": "^4.1.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Simon de Wit",
+  "license": "ISC"
+}

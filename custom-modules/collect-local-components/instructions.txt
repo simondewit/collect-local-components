@@ -1,0 +1,49 @@
+COLLECT LOCAL COMPONENTS
+This package is an edited version of https://www.npmjs.com/package/collect-components
+It is made for collecting components from local html files.
+
+INSTALLATION INSTRUCTIONS:
+
+- Copy the custom-modules folder into your project directory
+- use the following terminal command to copy the custom module to your node-modules folder
+	>>> npm install --save-dev custom-modules/collect-local-components
+
+
+Copy the following code to you gulp file:
+
+//=================================================================================//
+//=============================== COLLECT COMPONENTS  =============================//
+//=================================================================================//
+$.scraper = require('collect-local-components');
+
+gulp.task('collect', function() {
+    // make sure to compile html before scanning
+    $.runSequence('clean', 'sass', 'twig', 'collect-comps');
+});
+
+gulp.task('collect-comps', function() {
+    $.scraper({
+        url: 'demo/',
+        keyword: '@component',
+        block: '{{block}}',
+        output: 'components.json',
+        complete: function(components){}
+    });
+    console.log('>>> File components.json was created')
+});
+//=================================================================================//
+
+You should be all set!
+
+NB: If you make any edits to the code of the custom module, don't forget to update the node-module too:
+	>>> rm -rf node_module/custom_module && npm install
+
+Add comments to your html like this:
+
+<!-- @component
+name: component title
+description: your description
+-->
+
+For more info, see: https://www.npmjs.com/package/collect-components
+
