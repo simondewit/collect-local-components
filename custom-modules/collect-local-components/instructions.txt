@@ -47,3 +47,11 @@ description: your description
 
 For more info, see: https://www.npmjs.com/package/collect-components
 
+WHEN ERRORS:
+Npm sass binding error:
+	>>> npm rebuild node-sass
+
+Had a deep-qual error, is that something my program uses?
+
+
+

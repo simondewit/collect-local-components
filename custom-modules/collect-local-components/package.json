@@ -10,6 +10,7 @@
   "devDependencies": {
     "cheerio": "^1.0.0-rc.2",
     "css-select": "^2.0.2",
+    "deep-equal": "^1.0.1",
     "object-assign": "^4.1.1"
   },
   "scripts": {
