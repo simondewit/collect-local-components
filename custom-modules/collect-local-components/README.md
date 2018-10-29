@@ -139,31 +139,12 @@ The `capture` keyword specifies how many blocks after the comment will be return
 ---
 
 ## How to use
-```
-npm install collect-components
-```
-
-```js
-var scraper = require('collect-components');
-
-scraper({
-    url: 'https://rawgit.com/EightMedia/collect-components/master/test/fixtures/',
-    paths: ['examples.html', 'capture.html', 'yaml.html'],
-    keyword: '@component',
-    block: '{{block}}',
-    output: 'components.json',
-    complete: function(components){}
-});
-```
-
-## How to use
 
 * Copy the custom-modules folder into your project directory
 * use the following terminal command to copy the custom module to your node-modules folder
 ```
 npm install --save-dev custom-modules/collect-local-components
 ```
-
 
 Copy the following code to you gulp file:
 
