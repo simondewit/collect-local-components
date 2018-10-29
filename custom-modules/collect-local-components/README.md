@@ -1,5 +1,6 @@
-# Collect Components
-Captures tagged HTML comments and their corresponding HTML components from a website and generates components.json.
+# Collect Local Components
+Captures tagged HTML comments and their corresponding HTML components from local HTML files and generates components.json.
+*** This gulp task is an adjusted version of Arjen Scherff-de Water's collect-components task to handle local component scraping. (https://www.npmjs.com/package/collect-components) ***
 
 
 ## Usage
@@ -153,4 +154,47 @@ scraper({
     output: 'components.json',
     complete: function(components){}
 });
+```
+
+## How to use
+
+* Copy the custom-modules folder into your project directory
+* use the following terminal command to copy the custom module to your node-modules folder
+```
+npm install --save-dev custom-modules/collect-local-components
+```
+
+
+Copy the following code to you gulp file:
+
+```js
+//=================================================================================//
+//=============================== COLLECT COMPONENTS  =============================//
+//=================================================================================//
+$.scraper = require('collect-local-components');
+
+gulp.task('collect', function() {
+    // make sure to compile html before scanning
+    $.runSequence('all', 'your', 'other', 'tasks' 'collect-comps');
+});
+
+gulp.task('collect-comps', function() {
+    $.scraper({
+        url: 'demo/',
+        keyword: '@component',
+        block: '{{block}}',
+        output: 'components.json',
+        complete: function(components){}
+    });
+    console.log('>>> File components.json was created')
+});
+//=================================================================================//
+
+```
+
+You should be all set!
+
+## NB: If you make any edits to the code of the custom module, don't forget to update the node-module too:
+```
+rm -rf node_module/custom_module && npm install
 ```
