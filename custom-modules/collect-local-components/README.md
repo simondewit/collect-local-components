@@ -179,3 +179,96 @@ You should be all set!
 ```
 rm -rf node_module/custom_module && npm install
 ```
+
+## If you want to use the collect local components in combination with Design Manual:
+
+* Install Design Manual first:
+```
+npm install design-manual --save-dev
+```
+and copy the following code into your gulp file:
+
+```js
+//=================================================================================//
+//=============================== COLLECT COMPONENTS  =============================//
+//=================================================================================//
+$.scraper = require('collect-local-components');
+
+gulp.task('collect', function() {
+    // make sure to compile html before scanning
+    $.runSequence('clean', 'sass', 'html', 'collect-comps');
+});
+
+gulp.task('collect-comps', function() {
+    $.scraper({
+        url: 'demo/templates/',
+        keyword: '@component',
+        block: '{{block}}',
+        output: path.demo + 'docs/components.json',
+        complete: function() {
+            // build design manual
+            $.designManual.build({
+                force: true,
+                output: path.demo + 'styleguide/',
+                pages: path.src + 'styleguide/',
+                components: path.demo + 'docs/components.json',
+                componentHeadHtml: `
+                    <link rel="stylesheet" href="/static/css/style.css" />
+                    <link rel="stylesheet" href="https://fonts.typotheque.com/WF-014369-010251.css" type="text/css" />
+                    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700,700i" rel="stylesheet">
+                `,
+                componentBodyHtml: `
+                    <script type="text/javascript" src="/static/js/script.js"></script>
+                `,
+                headHtml: `<style>
+                    header.header {
+                        background-color: #ed1b34;
+                    }
+
+                    .content h1 {
+                        color: #ed1b34;
+                    }
+
+                    .content h2 {
+                        color: #ed1b34;
+                    }
+
+                    .content h3 {
+                        color: #ed1b34;
+                    }
+
+                    .content a {
+                        color: #ed1b34;
+                    }
+                </style>`,
+                nav: [
+                    {
+                        label: 'Index', href: 'index.html'
+                    },
+                    {
+                        label: 'Templates', href: 'templates.html'
+                    },
+                    {
+                        label: 'Components', href: 'components.html'
+                    },
+                    {
+                        label: 'Elements', href: 'elements.html',
+                    }
+                ],
+                meta: {
+                    domain: 'zuyd.nl',
+                    title: 'zuyd'
+                },
+                prerender: {
+                    port: 3004,
+                    path: path.demo + 'styleguide/',
+                    serveFolder: path.demo + 'styleguide/'
+                }
+            });
+        }
+    });
+    console.log('>>> File components.json was created')
+});
+//=================================================================================//
+
+```
